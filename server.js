@@ -22,6 +22,7 @@ const corsOptions = {
 
 // support parsing of application/json type post data
 app.use(bodyParser.json())
+app.options('*', cors()) // include before other routes
 app.use(cors(corsOptions))
 
 //support parsing of application/x-www-form-urlencoded post data
