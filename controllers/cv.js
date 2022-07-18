@@ -2,6 +2,8 @@ const { cloudinary } = require('../utils/cloudinary')
 const CV = require('./../models/CV')
 const axios = require('axios')
 const addCV = async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
+
   try {
     // console.log(req.body)
     const uploadedResponse = await cloudinary.uploader.upload(req.body.image, {
@@ -42,6 +44,8 @@ const addCV = async (req, res) => {
 }
 
 const myCVs = async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
+
   try {
     CV.find({ 'user._id': res.locals.user_id }, function (err, docs) {
       if (err) return res.status(400).json({ error: err })

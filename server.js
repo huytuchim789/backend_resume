@@ -10,30 +10,42 @@ const connectDB = require('./db/connectDB')
 const verifyMiddleware = require('./middlewares/verify')
 require('dotenv').config()
 const { getCV } = require('./controllers/cv')
-const cors = require('cors')
 
 connectDB()
-const PORT = 3001 || process.env.PORT
-const corsOptions = {
-  origin: '*',
-  credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
-}
+const PORT = process.env.PORT || 3000
+const HOST = process.env.HOST || '0.0.0.0'
+
+// const corsOptions = {
+//   origin: [
+//     'https://resume-frontend-12321.herokuapp.com/',
+//     'http://localhost:3000/',
+//   ],
+//   credentials: true, //access-control-allow-credentials:true
+//   optionSuccessStatus: 200,
+// }
 
 // support parsing of application/json type post data
 app.use(bodyParser.json())
-app.options('*', cors()) // include before other routes
-app.use(cors(corsOptions))
-
+app.use(cors())
+// app.use(cors(corsOptions))
+// app.use(function (req, res, next) {
+//   res.setHeader('Access-Control-Allow-Origin', '*')
+//   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,OPTIONS,DELETE')
+//   res.setHeader(
+//     'Access-Control-Allow-Headers',
+//     'Content-Type, Authorization, X-Requested-With'
+//   )
+//   res.setHeader('Access-Control-Allow-Credentials', true)
+//   next()
+// })
 //support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cors())
 app.use('/api', authRouter)
 app.get('/api/getCV', getCV)
 app.use('/api', contactRouter)
 app.use(verifyMiddleware)
 app.use('/api', CVRouter)
 
-app.listen(PORT, () => {
-  console.log('run')
+app.listen(PORT, HOST, () => {
+  console.log(`run on ${PORT} ${HOST}`)
 })

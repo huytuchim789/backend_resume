@@ -13,7 +13,7 @@ const {
   myCVs,
   otherCVs,
   // getCV,
-} = require('./../controllers/CV')
+} = require('./../controllers/cv')
 
 // router.post('/signup', signUp)
 // router.post('/account-activation', accountActivation)
