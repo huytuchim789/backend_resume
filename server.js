@@ -10,10 +10,19 @@ const connectDB = require('./db/connectDB')
 const verifyMiddleware = require('./middlewares/verify')
 require('dotenv').config()
 const { getCV } = require('./controllers/cv')
+const cors = require('cors')
+
 connectDB()
 const PORT = 3001 || process.env.PORT
+const corsOptions = {
+  origin: '*',
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+}
+
 // support parsing of application/json type post data
 app.use(bodyParser.json())
+app.use(cors(corsOptions))
 
 //support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }))
