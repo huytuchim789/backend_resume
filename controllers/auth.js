@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 const googleLogin = (req, res) => {
   const { tokenId } = req.body
   console.log(tokenId)
+  res.header('Access-Control-Allow-Origin', '*')
   client
     .verifyIdToken({
       idToken: tokenId,

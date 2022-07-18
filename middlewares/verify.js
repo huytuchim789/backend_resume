@@ -15,6 +15,7 @@ function extractToken(req) {
 const verifyMiddleware = (req, res, next) => {
   const token = extractToken(req)
   console.log(token)
+  res.header('Access-Control-Allow-Origin', '*')
   jwt.verify(token, process.env.JWT_KEY, function (err, decoded) {
     if (err) return res.status(400).json({ err: err })
     res.locals.user_id = decoded._id

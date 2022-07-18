@@ -15,7 +15,7 @@ const addContact = async (req, res) => {
     },
   })
   console.log(fromEmail, toEmail)
-
+  res.header('Access-Control-Allow-Origin', '*')
   // send mail with defined transport object
   try {
     let info = await transporter.sendMail({

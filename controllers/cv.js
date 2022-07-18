@@ -63,6 +63,7 @@ const otherCVs = async (req, res) => {
 }
 const getCV = async (req, res) => {
   const { email } = req.query
+  res.header('Access-Control-Allow-Origin', '*')
   if (!email) {
     return res.status(400).json({ error: 'Email cant not empty' })
   }
