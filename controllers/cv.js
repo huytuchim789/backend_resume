@@ -1,6 +1,6 @@
 const { cloudinary } = require('../utils/cloudinary')
 const CV = require('./../models/CV')
-
+const axios = require('axios')
 const addCV = async (req, res) => {
   try {
     // console.log(req.body)
@@ -11,7 +11,13 @@ const addCV = async (req, res) => {
       if (property !== 'image')
         req.body[property] = JSON.parse(req.body[property])
     }
-    console.log(req.body)
+    const personality = await axios.post(
+      'http://127.0.0.1:8000/face_analysis',
+      {
+        url: uploadedResponse.url,
+      }
+    )
+    console.log(personality.data)
     // const newCV = CV({ ...req.body, image: uploadedResponse.url })
     // newCV.save((error, data) => {
     //   if (error) return res.status(400).json({ message: error })
@@ -19,7 +25,11 @@ const addCV = async (req, res) => {
     // res.json({ message: 'add sucessfully' })
     CV.findOneAndUpdate(
       { 'user._id': res.locals.user_id },
-      { ...req.body, image: uploadedResponse.url },
+      {
+        ...req.body,
+        image: uploadedResponse.url,
+        personality: personality.data,
+      },
       { upsert: true, new: true, setDefaultsOnInsert: true },
       function (err, docs) {
         if (err) return res.status(400).json({ error: err })

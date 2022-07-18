@@ -10,6 +10,7 @@ const CVSchema = new Schema({
   skills: Array,
   theme: String,
   workList: Array,
+  personality: Object,
 })
 const CV = mongoose.model('CV', CVSchema)
 module.exports = CV
