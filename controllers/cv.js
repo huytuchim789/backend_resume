@@ -13,13 +13,14 @@ const addCV = async (req, res) => {
       if (property !== 'image')
         req.body[property] = JSON.parse(req.body[property])
     }
-    const personality = await axios.post(
-      'http://127.0.0.1:8000/face_analysis',
-      {
+    let personality = { data: {} }
+    try {
+      personality = await axios.post('http://127.0.0.1:8000/face_analysis', {
         url: uploadedResponse.url,
-      }
-    )
-    console.log(personality.data)
+      })
+    } catch (error) {
+      console.log(personality)
+    }
     // const newCV = CV({ ...req.body, image: uploadedResponse.url })
     // newCV.save((error, data) => {
     //   if (error) return res.status(400).json({ message: error })

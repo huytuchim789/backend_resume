@@ -9,6 +9,7 @@ const {
   //   forgotPassword,
   //   resetPassword,
   addContact,
+  updateCSV
 } = require('./../controllers/contact')
 
 // router.post('/signup', signUp)
@@ -17,4 +18,5 @@ const {
 // router.put('/forgot-password', forgotPassword)
 // router.put('/reset-password', resetPassword)
 router.post('/contact', addContact)
+router.post('/update-csv', updateCSV)
 module.exports = { contactRouter: router }
